@@ -1,0 +1,45 @@
+name: Fetch generated images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download AI-generated images
+        run: |
+          set -euo pipefail
+          mkdir -p assets/img
+          S="https://d8j0ntlcm91z4.cloudfront.net/user_3DJAqn3XnedpGR0oZ06Av6jEn6z"
+          curl -sfL "$S/hf_20260714_134934_256ca04b-5776-421e-b4a2-55f06e740f1f.png" -o /tmp/hero.png
+          curl -sfL "$S/hf_20260714_134937_b61cff33-91c0-4bd7-b73f-37982a10d876.png" -o /tmp/nests.png
+          curl -sfL "$S/hf_20260714_134944_e17c1fc7-2225-44b5-8acd-a41ebcf6d3e7.png" -o /tmp/tiramisu.png
+          curl -sfL "$S/hf_20260714_134952_178608ee-5148-47cf-bf1c-045d68fe6278.png" -o /tmp/group.png
+          curl -sfL "$S/hf_20260714_134958_09fff35d-a553-4813-90a3-4f84988c9767.png" -o /tmp/wine.png
+          curl -sfL "$S/hf_20260714_135004_cfb5369f-09a8-42c2-a887-f06ddd74fe36.png" -o /tmp/interior.png
+
+      - name: Convert to optimized JPEG
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick
+          convert /tmp/hero.png     -quality 85 -strip assets/img/hero-pasta.jpg
+          convert /tmp/nests.png    -quality 85 -strip assets/img/pasta-nests.jpg
+          convert /tmp/tiramisu.png -quality 85 -strip assets/img/tiramisu.jpg
+          convert /tmp/group.png    -quality 85 -strip assets/img/class-group.jpg
+          convert /tmp/wine.png     -quality 85 -strip assets/img/wine-toast.jpg
+          convert /tmp/interior.png -quality 85 -strip assets/img/restaurant-interior.jpg
+          ls -la assets/img/
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/img
+          git diff --cached --quiet || git commit -m "Add optimized AI-generated site images"
+          git push

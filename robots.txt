@@ -1,0 +1,7 @@
+# Cooking Class Arezzo — Ristorante Le Corniole
+# All crawlers welcome, including AI assistants (GPTBot, ClaudeBot, PerplexityBot, Google-Extended)
+
+User-agent: *
+Allow: /
+
+Sitemap: https://radusbologa-ctrl.github.io/cooking-class-arezzo/sitemap.xml

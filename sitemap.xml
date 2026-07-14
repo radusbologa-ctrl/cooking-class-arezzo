@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://radusbologa-ctrl.github.io/cooking-class-arezzo/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://radusbologa-ctrl.github.io/cooking-class-arezzo/it/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://radusbologa-ctrl.github.io/cooking-class-arezzo/"/>
+    <image:image>
+      <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/hero-pasta.jpg</image:loc>
+      <image:title>Cooking Class in Arezzo, Tuscany — fresh handmade pasta</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/class-group.jpg</image:loc>
+      <image:title>Hands-on pasta making class with expert chef in Arezzo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/tiramisu.jpg</image:loc>
+      <image:title>Authentic Italian tiramisù made during the Arezzo cooking class</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/it/</loc>
+    <lastmod>2026-07-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://radusbologa-ctrl.github.io/cooking-class-arezzo/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://radusbologa-ctrl.github.io/cooking-class-arezzo/it/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://radusbologa-ctrl.github.io/cooking-class-arezzo/"/>
+  </url>
+</urlset>

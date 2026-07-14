@@ -3,37 +3,37 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://www.cookingclassarezzo.it/</loc>
+    <loc>https://cookingclassarezzo.it/</loc>
     <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.cookingclassarezzo.it/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://www.cookingclassarezzo.it/it/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cookingclassarezzo.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cookingclassarezzo.it/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://cookingclassarezzo.it/it/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cookingclassarezzo.it/"/>
     <image:image>
-      <image:loc>https://www.cookingclassarezzo.it/assets/img/real-class.jpg</image:loc>
+      <image:loc>https://cookingclassarezzo.it/assets/img/real-class.jpg</image:loc>
       <image:title>Guests making fresh pasta at the cooking class in Arezzo</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.cookingclassarezzo.it/assets/img/real-pasta-table.jpg</image:loc>
+      <image:loc>https://cookingclassarezzo.it/assets/img/real-pasta-table.jpg</image:loc>
       <image:title>Fresh handmade pasta made during the Arezzo cooking class</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.cookingclassarezzo.it/assets/img/real-tiramisu.jpg</image:loc>
+      <image:loc>https://cookingclassarezzo.it/assets/img/real-tiramisu.jpg</image:loc>
       <image:title>Tiramisù plated during the Arezzo cooking class</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://www.cookingclassarezzo.it/assets/img/hero-pasta.jpg</image:loc>
+      <image:loc>https://cookingclassarezzo.it/assets/img/hero-pasta.jpg</image:loc>
       <image:title>Hands kneading fresh pasta dough — cooking class Arezzo, Tuscany</image:title>
     </image:image>
   </url>
   <url>
-    <loc>https://www.cookingclassarezzo.it/it/</loc>
+    <loc>https://cookingclassarezzo.it/it/</loc>
     <lastmod>2026-07-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.cookingclassarezzo.it/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://www.cookingclassarezzo.it/it/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.cookingclassarezzo.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cookingclassarezzo.it/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://cookingclassarezzo.it/it/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cookingclassarezzo.it/"/>
   </url>
 </urlset>

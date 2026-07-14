@@ -27,7 +27,7 @@ Sito web bilingue (EN/IT) per le cooking class del **Ristorante Le Corniole** di
 
 1. Rendi il repository **pubblico** (Settings → General → Danger Zone → Change visibility) — richiesto per GitHub Pages gratuito.
 2. Su GitHub: **Settings → Pages → Source: Deploy from a branch** → scegli questo branch, cartella `/ (root)`.
-3. Sempre in **Settings → Pages → Custom domain**: inserisci `www.cookingclassarezzo.it` e, quando disponibile, spunta **Enforce HTTPS**.
+3. Sempre in **Settings → Pages → Custom domain**: inserisci `cookingclassarezzo.it` (già fatto ✓) e, quando disponibile, spunta **Enforce HTTPS**.
 4. Su **Register.it → Gestione DNS** del dominio `cookingclassarezzo.it` crea questi record:
 
    | Tipo | Host | Valore |
@@ -40,7 +40,7 @@ Sito web bilingue (EN/IT) per le cooking class del **Ristorante Le Corniole** di
 
    (elimina eventuali record A o CNAME preesistenti su `@` e `www`, come la pagina parcheggio di Register)
 
-5. Attendi la propagazione DNS (da pochi minuti a qualche ora). Il sito risponderà su `https://www.cookingclassarezzo.it/` e `cookingclassarezzo.it` reindirizzerà automaticamente.
+5. Attendi la propagazione DNS (da pochi minuti a qualche ora). Il sito risponderà su `https://cookingclassarezzo.it/` e `www.cookingclassarezzo.it` reindirizzerà automaticamente.
 
 ## Passi successivi consigliati (importanti per il posizionamento)
 

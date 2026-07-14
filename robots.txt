@@ -4,4 +4,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.cookingclassarezzo.it/sitemap.xml
+Sitemap: https://cookingclassarezzo.it/sitemap.xml

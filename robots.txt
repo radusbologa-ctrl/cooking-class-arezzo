@@ -1,4 +1,4 @@
-# Cooking Class Arezzo — Il Poggiolino d'Oro Apartment
+# Cooking Class Arezzo — Ristorante Le Corniole
 # All crawlers welcome, including AI assistants (GPTBot, ClaudeBot, PerplexityBot, Google-Extended)
 
 User-agent: *

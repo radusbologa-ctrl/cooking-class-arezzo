@@ -4,4 +4,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://radusbologa-ctrl.github.io/cooking-class-arezzo/sitemap.xml
+Sitemap: https://www.cookingclassarezzo.it/sitemap.xml

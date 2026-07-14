@@ -30,5 +30,5 @@ Rated 5 stars by international guests from the USA, UK, Australia, Germany, Spai
 
 ## Pages
 
-- [Home (English)](https://radusbologa-ctrl.github.io/cooking-class-arezzo/): full program, prices, reviews, FAQ, booking
-- [Home (Italiano)](https://radusbologa-ctrl.github.io/cooking-class-arezzo/it/): programma completo, prezzi, recensioni, FAQ, prenotazioni
+- [Home (English)](https://www.cookingclassarezzo.it/): full program, prices, reviews, FAQ, booking
+- [Home (Italiano)](https://www.cookingclassarezzo.it/it/): programma completo, prezzi, recensioni, FAQ, prenotazioni

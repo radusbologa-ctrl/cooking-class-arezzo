@@ -412,30 +412,31 @@
 
           <div class="slot-group" role="radiogroup" aria-label="Scegli il tuo orario">
             <label class="slot">
-              <input type="radio" name="slot" value="10:30" data-price="69" data-label="Lezione del mattino">
+              <input type="radio" name="slot" value="10:30" data-price="69" data-pay="https://updates.actiwise.biz/payment-link/6a56a3e1b1a0a3e48f24d0a0" data-label="Lezione del mattino">
               <span class="slot-info"><strong>10:30 · Lezione del mattino</strong><small>Mar–Ven e Dom</small></span>
               <span class="slot-price">€69</span>
             </label>
             <label class="slot">
-              <input type="radio" name="slot" value="13:00" data-price="79" data-label="Lezione pranzo" checked>
+              <input type="radio" name="slot" value="13:00" data-price="79" data-pay="https://updates.actiwise.biz/payment-link/6a56a403a655fa0b802a444f" data-label="Lezione pranzo" checked>
               <span class="slot-info"><strong>13:00 · Lezione pranzo</strong><small>Mar–Ven e Dom · la più richiesta</small></span>
               <span class="slot-price">€79</span>
             </label>
             <label class="slot">
-              <input type="radio" name="slot" value="17:30" data-price="89" data-label="Lezione pomeridiana">
+              <input type="radio" name="slot" value="17:30" data-price="89" data-pay="https://updates.actiwise.biz/payment-link/6a56a41db1a0a3e48f24d0a2" data-label="Lezione pomeridiana">
               <span class="slot-info"><strong>17:30 · Lezione pomeridiana</strong><small>Mar–Ven e Dom</small></span>
               <span class="slot-price">€89</span>
             </label>
           </div>
           <p class="days-note">Le lezioni si svolgono dal martedì al venerdì e la domenica. Prenotazione obbligatoria.</p>
 
-          <a class="btn" id="reserve-btn" href="https://wa.me/393469776103?text=Ciao!%20Vorrei%20prenotare%20la%20cooking%20class%20delle%2013%3A00%20ad%20Arezzo." rel="noopener">Prenota su WhatsApp</a>
+          <a class="btn" id="pay-btn" href="https://updates.actiwise.biz/payment-link/6a56a403a655fa0b802a444f" target="_blank" rel="noopener">Prenota e Paga Online — €79</a>
+          <a class="btn btn-outline" id="reserve-btn" style="margin-top:10px;" href="https://wa.me/393469776103?text=Ciao!%20Vorrei%20prenotare%20la%20cooking%20class%20delle%2013%3A00%20ad%20Arezzo." rel="noopener">Prenota su WhatsApp</a>
 
           <div class="alt-contact">
             <span>📞 <a href="tel:+393469776103">+39 346 9776103</a></span>
             <span>✉️ <a href="mailto:ilpoggiolinodoro@gmail.com">ilpoggiolinodoro@gmail.com</a></span>
           </div>
-          <p class="no-charge">Nessun addebito ora: confermiamo la prenotazione su WhatsApp.</p>
+          <p class="no-charge">🔒 Pagamento online sicuro — oppure prenota su WhatsApp e paga al ristorante.</p>
         </div>
       </aside>
     </div>
@@ -480,7 +481,7 @@
   <!-- Barra prenotazione mobile -->
   <div class="mobile-book">
     <div class="mb-price"><strong id="mb-price">€79</strong> / persona<small id="mb-slot">13:00 · Lezione pranzo</small></div>
-    <a class="btn" id="mb-reserve" href="https://wa.me/393469776103?text=Ciao!%20Vorrei%20prenotare%20la%20cooking%20class%20delle%2013%3A00%20ad%20Arezzo." rel="noopener">Prenota</a>
+    <a class="btn" id="mb-reserve" target="_blank" href="https://updates.actiwise.biz/payment-link/6a56a403a655fa0b802a444f" rel="noopener">Prenota</a>
   </div>
 
   <!-- Pulsante WhatsApp (desktop) -->
@@ -492,6 +493,7 @@
     (function () {
       var slots = document.querySelectorAll('input[name="slot"]');
       var reserve = document.getElementById('reserve-btn');
+      var pay = document.getElementById('pay-btn');
       var mbReserve = document.getElementById('mb-reserve');
       var mbPrice = document.getElementById('mb-price');
       var mbSlot = document.getElementById('mb-slot');
@@ -501,7 +503,9 @@
         var msg = encodeURIComponent('Ciao! Vorrei prenotare la cooking class delle ' + s.value + ' (' + s.dataset.label + ', €' + s.dataset.price + '/persona) ad Arezzo.');
         var href = 'https://wa.me/393469776103?text=' + msg;
         reserve.href = href;
-        mbReserve.href = href;
+        pay.href = s.dataset.pay;
+        pay.textContent = 'Prenota e Paga Online — €' + s.dataset.price;
+        mbReserve.href = s.dataset.pay;
         mbPrice.textContent = '€' + s.dataset.price;
         mbSlot.textContent = s.value + ' · ' + s.dataset.label;
       }

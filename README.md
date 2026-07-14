@@ -1,6 +1,6 @@
-# Cooking Class Arezzo — Ristorante Le Corniole
+# Cooking Class Arezzo — Il Poggiolino d'Oro Apartment
 
-Sito web bilingue (EN/IT) per le cooking class del **Ristorante Le Corniole** di Arezzo, ottimizzato per Google (SEO) e per i motori di ricerca AI come ChatGPT, Perplexity e Claude (GEO).
+Sito web bilingue (EN/IT) per le cooking class del **Il Poggiolino d'Oro Apartment** di Arezzo, ottimizzato per Google (SEO) e per i motori di ricerca AI come ChatGPT, Perplexity e Claude (GEO).
 
 ## Struttura
 
@@ -44,7 +44,7 @@ Sito web bilingue (EN/IT) per le cooking class del **Ristorante Le Corniole** di
 
 ## Passi successivi consigliati (importanti per il posizionamento)
 
-1. **Google Business Profile**: crea/aggiorna la scheda "Ristorante Le Corniole" aggiungendo il servizio "Cooking Class" e il link al sito — è il fattore n.1 per le ricerche locali.
+1. **Google Business Profile**: crea/aggiorna la scheda "Il Poggiolino d'Oro Apartment" aggiungendo il servizio "Cooking Class" e il link al sito — è il fattore n.1 per le ricerche locali.
 2. **Google Search Console**: verifica il sito e invia `sitemap.xml`.
 3. **Recensioni**: chiedi agli ospiti di recensire su Google e TripAdvisor citando "cooking class" — poi aggiorna `reviewCount` nel JSON-LD di `index.html` con i numeri reali.
 4. **GetYourGuide / Viator / Airbnb Experiences**: pubblica l'esperienza anche lì con link al sito (backlink + prenotazioni).

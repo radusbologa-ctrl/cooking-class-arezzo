@@ -1,0 +1,69 @@
+name: Fetch photos from ilpoggiolinodoro.it
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/cooking-class-seo-geo-szlgnk
+    paths:
+      - ".github/workflows/fetch-poggiolino.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download pages and extract image URLs
+        run: |
+          set -uo pipefail
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+          mkdir -p scraped/img scraped/html
+          base="https://www.ilpoggiolinodoro.it"
+
+          # homepage + sitemap
+          curl -sL -A "$UA" "$base/" -o scraped/html/home.html || true
+          curl -sL -A "$UA" "$base/sitemap.xml" -o scraped/html/sitemap.xml || true
+
+          # collect page URLs from sitemap (same domain, max 40)
+          grep -oE 'https?://[^<"]*ilpoggiolinodoro\.it[^<"]*' scraped/html/sitemap.xml 2>/dev/null \
+            | grep -viE '\.(jpg|jpeg|png|webp|gif|pdf|xml)$' | sort -u | head -40 > /tmp/pages.txt || true
+          echo "$base/" >> /tmp/pages.txt
+
+          i=0
+          while read -r url; do
+            [ -z "$url" ] && continue
+            i=$((i+1))
+            curl -sL -A "$UA" "$url" -o "scraped/html/page$i.html" || true
+          done < /tmp/pages.txt
+
+          # extract every image URL from all HTML (src, srcset, css url())
+          cat scraped/html/*.html 2>/dev/null \
+            | grep -oE 'https?://[^ "'"'"'()<>]+\.(jpg|jpeg|png|webp)' \
+            | sort -u | head -80 > /tmp/imgs.txt || true
+          echo "Found $(wc -l < /tmp/imgs.txt) image URLs"
+          cat /tmp/imgs.txt
+
+          n=0
+          while read -r img; do
+            [ -z "$img" ] && continue
+            n=$((n+1))
+            ext="${img##*.}"
+            curl -sfL -A "$UA" "$img" -o "scraped/img/img$(printf '%02d' $n).$ext" || true
+            echo "$img" >> scraped/img/urls.txt
+          done < /tmp/imgs.txt
+
+          # drop tiny files (icons, trackers)
+          find scraped/img -type f \( -name '*.jpg' -o -name '*.jpeg' -o -name '*.png' -o -name '*.webp' \) -size -15k -delete || true
+          ls -la scraped/img/ || true
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scraped
+          git diff --cached --quiet || git commit -m "Add scraped pages and photos from ilpoggiolinodoro.it for review"
+          git push

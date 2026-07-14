@@ -11,16 +11,20 @@
     <xhtml:link rel="alternate" hreflang="it" href="https://radusbologa-ctrl.github.io/cooking-class-arezzo/it/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://radusbologa-ctrl.github.io/cooking-class-arezzo/"/>
     <image:image>
+      <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/real-class.jpg</image:loc>
+      <image:title>Guests making fresh pasta at the cooking class in Arezzo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/real-pasta-table.jpg</image:loc>
+      <image:title>Fresh handmade pasta made during the Arezzo cooking class</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/real-tiramisu.jpg</image:loc>
+      <image:title>Tiramisù plated during the Arezzo cooking class</image:title>
+    </image:image>
+    <image:image>
       <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/hero-pasta.jpg</image:loc>
-      <image:title>Cooking Class in Arezzo, Tuscany — fresh handmade pasta</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/class-group.jpg</image:loc>
-      <image:title>Hands-on pasta making class with expert chef in Arezzo</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://radusbologa-ctrl.github.io/cooking-class-arezzo/assets/img/tiramisu.jpg</image:loc>
-      <image:title>Authentic Italian tiramisù made during the Arezzo cooking class</image:title>
+      <image:title>Hands kneading fresh pasta dough — cooking class Arezzo, Tuscany</image:title>
     </image:image>
   </url>
   <url>

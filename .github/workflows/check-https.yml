@@ -1,0 +1,47 @@
+name: Check HTTPS certificate
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/cooking-class-seo-geo-szlgnk
+    paths:
+      - ".github/workflows/check-https.yml"
+
+permissions:
+  contents: read
+  pages: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: TLS certificate served on apex
+        continue-on-error: true
+        run: |
+          echo "===== CERT apex ====="
+          echo | timeout 15 openssl s_client -connect cookingclassarezzo.it:443 -servername cookingclassarezzo.it 2>/dev/null | openssl x509 -noout -subject -issuer -dates || echo "NO_CERT_APEX"
+          echo "===== CERT www ====="
+          echo | timeout 15 openssl s_client -connect www.cookingclassarezzo.it:443 -servername www.cookingclassarezzo.it 2>/dev/null | openssl x509 -noout -subject -issuer -dates || echo "NO_CERT_WWW"
+
+      - name: HTTP responses
+        continue-on-error: true
+        run: |
+          echo "===== HTTPS apex ====="
+          curl -sS -o /dev/null -w "status=%{http_code} ssl_verify=%{ssl_verify_result}\n" --max-time 20 https://cookingclassarezzo.it/ || echo "HTTPS_APEX_FAILED"
+          echo "===== HTTP apex (redirect?) ====="
+          curl -sS -o /dev/null -w "status=%{http_code} redirect=%{redirect_url}\n" --max-time 20 http://cookingclassarezzo.it/ || true
+          echo "===== HTTPS www ====="
+          curl -sS -o /dev/null -w "status=%{http_code} ssl_verify=%{ssl_verify_result}\n" --max-time 20 https://www.cookingclassarezzo.it/ || echo "HTTPS_WWW_FAILED"
+          echo "===== page title over https (insecure ok) ====="
+          curl -sSk --max-time 20 https://cookingclassarezzo.it/ | grep -o "<title>[^<]*</title>" | head -1 || true
+
+      - name: Official Pages API status
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "===== Pages API ====="
+          gh api "repos/${{ github.repository }}/pages" || echo "PAGES_API_DENIED"
+          echo "===== Pages health check ====="
+          gh api "repos/${{ github.repository }}/pages/health" || echo "HEALTH_API_DENIED"

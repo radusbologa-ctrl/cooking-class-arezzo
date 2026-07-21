@@ -1,4 +1,4 @@
-name: Check HTTPS certificate
+name: Check HTTPS certificate # status check
 
 on:
   workflow_dispatch:

@@ -40,6 +40,13 @@ jobs:
           head -3 /tmp/sm.xml || true
           echo "===== robots.txt ====="
           curl -sS --max-time 20 https://cookingclassarezzo.it/robots.txt | head -8 || true
+          echo "===== backlink from ilpoggiolinodoro.it ====="
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+          curl -sL -A "$UA" --max-time 25 https://www.ilpoggiolinodoro.it/ -o /tmp/pdo.html || echo "PDO_FETCH_FAILED"
+          echo "links to cookingclassarezzo.it: $(grep -c 'cookingclassarezzo.it' /tmp/pdo.html || true)"
+          grep -oE 'href="https://cookingclassarezzo.it[^"]*"' /tmp/pdo.html | sort | uniq -c || echo "NO_BACKLINK_FOUND"
+          echo "broken wa.me/39 links left: $(grep -c 'wa.me/39\"' /tmp/pdo.html || true)"
+          echo "wa.me full links: $(grep -oE 'wa.me/[0-9]+' /tmp/pdo.html | sort -u | tr '\n' ' ')"
 
       - name: Official Pages API status
         continue-on-error: true

@@ -35,6 +35,11 @@ jobs:
           curl -sS -o /dev/null -w "status=%{http_code} ssl_verify=%{ssl_verify_result}\n" --max-time 20 https://www.cookingclassarezzo.it/ || echo "HTTPS_WWW_FAILED"
           echo "===== page title over https (insecure ok) ====="
           curl -sSk --max-time 20 https://cookingclassarezzo.it/ | grep -oE "<title>[^<]*</title>|google-site-verification[^>]*" | head -2 || true
+          echo "===== sitemap.xml ====="
+          curl -sS -o /tmp/sm.xml -w "status=%{http_code} type=%{content_type} size=%{size_download}\n" --max-time 20 https://cookingclassarezzo.it/sitemap.xml || echo "SITEMAP_FAILED"
+          head -3 /tmp/sm.xml || true
+          echo "===== robots.txt ====="
+          curl -sS --max-time 20 https://cookingclassarezzo.it/robots.txt | head -8 || true
 
       - name: Official Pages API status
         continue-on-error: true

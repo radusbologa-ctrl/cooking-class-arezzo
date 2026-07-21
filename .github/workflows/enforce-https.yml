@@ -1,0 +1,29 @@
+name: Enforce HTTPS on Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/cooking-class-seo-geo-szlgnk
+    paths:
+      - ".github/workflows/enforce-https.yml"
+
+permissions:
+  contents: read
+  pages: write
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable https_enforced via Pages API
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "===== PUT https_enforced=true ====="
+          gh api -X PUT "repos/${{ github.repository }}/pages" \
+            -F https_enforced=true \
+            && echo "ENFORCE_OK" || echo "ENFORCE_DENIED"
+          echo "===== Current state ====="
+          gh api "repos/${{ github.repository }}/pages" | tr ',' '\n' | grep -E "https_enforced|https_certificate|state" || true

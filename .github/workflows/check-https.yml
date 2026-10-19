@@ -1,4 +1,4 @@
-name: Check HTTPS certificate # final gallery check
+name: Check HTTPS certificate # backlink + https check
 
 on:
   workflow_dispatch:

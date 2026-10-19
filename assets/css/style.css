@@ -449,3 +449,13 @@ a { color: inherit; }
   html { scroll-behavior: auto; }
   .btn, .wa-float, .mosaic img { transition: none; }
 }
+
+/* ===== Tuscan getaway section ===== */
+.getaway-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 18px; }
+.getaway-card { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 22px 20px; background: var(--bg-soft); }
+.getaway-card .g-ico { font-size: 30px; }
+.getaway-card h3 { margin: 10px 0 6px; font-size: 17px; }
+.getaway-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; margin: 0 0 12px; }
+.getaway-card a.g-link { font-weight: 700; color: var(--accent-dark); font-size: 14px; }
+.getaway-note { margin-top: 16px; font-size: 14px; color: var(--ink-soft); background: var(--bg-soft); border-radius: var(--radius); padding: 12px 16px; }
+@media (max-width: 760px) { .getaway-grid { grid-template-columns: 1fr; } }

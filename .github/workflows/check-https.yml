@@ -43,6 +43,7 @@ jobs:
           echo "===== rebrand check on live site ====="
           curl -sS --max-time 20 https://cookingclassarezzo.it/ -o /tmp/en.html; curl -sS --max-time 20 https://cookingclassarezzo.it/it/ -o /tmp/itp.html
           echo "EN corniole:$(grep -ci corniole /tmp/en.html || true) actiwise:$(grep -c actiwise /tmp/en.html || true) wa-btn:$(grep -c wa-btn /tmp/en.html || true) getaway:$(grep -c tuscany /tmp/en.html || true) poggiolino:$(grep -ci poggiolino /tmp/en.html || true)"
+          echo "EN reviews:$(grep -c 'class=\"review\"' /tmp/en.html || true) kalen:$(grep -c Kalen /tmp/en.html || true) count46:$(grep -c '46 verified' /tmp/en.html || true)"
           echo "IT corniole:$(grep -ci corniole /tmp/itp.html || true) actiwise:$(grep -c actiwise /tmp/itp.html || true) wa-btn:$(grep -c wa-btn /tmp/itp.html || true) getaway:$(grep -c tuscany /tmp/itp.html || true) poggiolino:$(grep -ci poggiolino /tmp/itp.html || true)"
           echo "===== backlink from ilpoggiolinodoro.it ====="
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"

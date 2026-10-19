@@ -258,8 +258,8 @@
       <a class="m-main" href="#gallery"><img src="assets/img/real-class.jpg" alt="Guests in aprons making fresh pasta during the cooking class in Arezzo" fetchpriority="high"></a>
       <a href="#gallery"><img src="assets/img/real-pasta-table.jpg" alt="Fresh handmade pasta and ravioli on the class table with rolling pins and Tuscan wine"></a>
       <a href="#gallery"><img src="assets/img/real-tiramisu.jpg" alt="Chef plating the tiramisù made during the Arezzo cooking class"></a>
-      <a class="m-hide" href="#gallery"><img src="assets/img/hero-pasta.jpg" alt="Hands kneading fresh egg pasta dough on a flour-dusted wooden table" loading="lazy"></a>
-      <a class="m-hide" href="#gallery"><img src="assets/img/class-happy-guests.jpg" alt="Smiling group rolling pasta with the chef at the cooking class" loading="lazy"></a>
+      <a class="m-hide" href="#gallery"><img src="assets/img/tiramisu-platter.jpg" alt="Large cocoa-dusted tiramisù made by the class" loading="lazy"></a>
+      <a class="m-hide" href="#gallery"><img src="assets/img/class-happy-guests.jpg" alt="Happy guests with rolling pins and ravioli stamps after the class" loading="lazy"></a>
       <a class="photos-btn" href="#gallery">Show all photos</a>
     </div>
 
@@ -774,5 +774,24 @@
     })();
   </script>
 
+  <script>
+    (function () {
+      var ov = document.createElement('div'); ov.className = 'lb';
+      ov.innerHTML = '<button class="lb-x" aria-label="Close">\u00D7</button><img alt="">';
+      document.body.appendChild(ov);
+      var big = ov.querySelector('img');
+      document.querySelectorAll('.mosaic img, .gallery img').forEach(function (im) {
+        im.style.cursor = 'zoom-in';
+        im.addEventListener('click', function (e) {
+          e.preventDefault(); e.stopPropagation();
+          big.src = im.src; big.alt = im.alt;
+          ov.classList.add('open'); document.body.style.overflow = 'hidden';
+        });
+      });
+      function close() { ov.classList.remove('open'); document.body.style.overflow = ''; }
+      ov.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
 </body>
 </html>

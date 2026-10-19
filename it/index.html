@@ -178,8 +178,8 @@
       <a class="m-main" href="#gallery"><img src="../assets/img/real-class.jpg" alt="Ospiti con i grembiuli preparano la pasta fresca durante la cooking class ad Arezzo" fetchpriority="high"></a>
       <a href="#gallery"><img src="../assets/img/real-pasta-table.jpg" alt="Pasta fresca fatta a mano e ravioli sul tavolo della lezione con mattarelli e vino toscano"></a>
       <a href="#gallery"><img src="../assets/img/real-tiramisu.jpg" alt="La chef impiatta il tiramisù preparato durante la cooking class di Arezzo"></a>
-      <a class="m-hide" href="#gallery"><img src="../assets/img/tiramisu-platter.jpg" alt="Mani che impastano la pasta fresca all'uovo sul tavolo infarinato" loading="lazy"></a>
-      <a class="m-hide" href="#gallery"><img src="../assets/img/class-happy-guests.jpg" alt="Gruppo sorridente stende la pasta con la chef durante la lezione" loading="lazy"></a>
+      <a class="m-hide" href="#gallery"><img src="../assets/img/tiramisu-platter.jpg" alt="Grande tiramisù al cacao preparato dalla classe" loading="lazy"></a>
+      <a class="m-hide" href="#gallery"><img src="../assets/img/class-happy-guests.jpg" alt="Ospiti felici con matterelli e stampi a fine lezione" loading="lazy"></a>
       <a class="photos-btn" href="#gallery">Mostra tutte le foto</a>
     </div>
 
@@ -694,5 +694,24 @@
     })();
   </script>
 
+  <script>
+    (function () {
+      var ov = document.createElement('div'); ov.className = 'lb';
+      ov.innerHTML = '<button class="lb-x" aria-label="Close">\u00D7</button><img alt="">';
+      document.body.appendChild(ov);
+      var big = ov.querySelector('img');
+      document.querySelectorAll('.mosaic img, .gallery img').forEach(function (im) {
+        im.style.cursor = 'zoom-in';
+        im.addEventListener('click', function (e) {
+          e.preventDefault(); e.stopPropagation();
+          big.src = im.src; big.alt = im.alt;
+          ov.classList.add('open'); document.body.style.overflow = 'hidden';
+        });
+      });
+      function close() { ov.classList.remove('open'); document.body.style.overflow = ''; }
+      ov.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
+  </script>
 </body>
 </html>

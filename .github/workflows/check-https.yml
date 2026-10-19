@@ -1,4 +1,4 @@
-name: Check HTTPS certificate # backlink + https check
+name: Check HTTPS certificate # verify https enforced
 
 on:
   workflow_dispatch:

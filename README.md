@@ -1,6 +1,6 @@
-# Cooking Class Arezzo — Il Poggiolino d'Oro Apartment
+# Cooking Class Arezzo — presentata da Il Poggiolino d'Oro – appartamento vacanze ad Arezzo
 
-Sito web bilingue (EN/IT) per le cooking class del **Il Poggiolino d'Oro Apartment** di Arezzo, ottimizzato per Google (SEO) e per i motori di ricerca AI come ChatGPT, Perplexity e Claude (GEO).
+Sito web bilingue (EN/IT) per le cooking class di Arezzo presentate da **Il Poggiolino d'Oro – appartamento vacanze ad Arezzo** (https://ilpoggiolinodoro.it/), ottimizzato per Google (SEO) e per i motori di ricerca AI come ChatGPT, Perplexity e Claude (GEO).
 
 ## Struttura
 
@@ -44,9 +44,9 @@ Sito web bilingue (EN/IT) per le cooking class del **Il Poggiolino d'Oro Apartme
 
 ## Passi successivi consigliati (importanti per il posizionamento)
 
-1. **Google Business Profile**: crea/aggiorna la scheda "Il Poggiolino d'Oro Apartment" aggiungendo il servizio "Cooking Class" e il link al sito — è il fattore n.1 per le ricerche locali.
+1. **Google Business Profile**: la cooking class si svolge nel centro di Arezzo (vicino alla stazione), non nell'appartamento: non aggiungerla come servizio alla scheda del Poggiolino d'Oro. Se serve una scheda, va creata per la cooking class all'indirizzo della lezione.
 2. **Google Search Console**: verifica il sito e invia `sitemap.xml`.
-3. **Recensioni**: chiedi agli ospiti di recensire su Google e TripAdvisor citando "cooking class" — poi aggiorna `reviewCount` nel JSON-LD di `index.html` con i numeri reali.
+3. **Recensioni**: chiedi agli ospiti di recensire su Google e TripAdvisor citando "cooking class". Il JSON-LD non contiene più `aggregateRating`/`review`: le 46 recensioni mostrate in pagina vengono da GetYourGuide e Google non accetta nel markup recensioni raccolte su altri siti.
 4. **GetYourGuide / Viator / Airbnb Experiences**: pubblica l'esperienza anche lì con link al sito (backlink + prenotazioni).
 5. Verifica la **durata esatta della lezione** e aggiungila alle FAQ se vuoi (al momento non è indicata).
 

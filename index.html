@@ -81,11 +81,11 @@
   }
   </script>
 
-  <!-- Structured data: the cooking class as a Product with offers & reviews -->
+  <!-- Structured data: the cooking class (Product + Service) with offers, provided by Il Poggiolino d'Oro -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": ["Product", "Service"],
     "@id": "https://cookingclassarezzo.it/#cookingclass",
     "name": "Traditional Tuscan Cooking Class in Arezzo — Fresh Pasta & Tiramisù",
     "description": "Hands-on cooking class in Arezzo, Tuscany. Learn to make fresh handmade pasta and authentic Italian tiramisù under the guidance of an expert chef. Includes all ingredients and equipment, unlimited local wines, detailed recipes to take home and a full meal of everything you prepare. Small class sizes for personalized attention. Tuesday to Friday and Sundays at 10:30, 13:00 and 17:30, prior booking required.",
@@ -96,10 +96,11 @@
       "https://cookingclassarezzo.it/assets/img/tiramisu-platter.jpg"
     ],
     "brand": { "@type": "Brand", "name": "Cooking Class Arezzo" },
-    "sponsor": {
-      "@type": "Organization",
-      "name": "Il Poggiolino d'Oro Apartment",
-      "url": "https://www.ilpoggiolinodoro.it"
+    "provider": {
+      "@type": "LodgingBusiness",
+      "@id": "https://ilpoggiolinodoro.it/#lodging",
+      "name": "Il Poggiolino d'Oro",
+      "url": "https://ilpoggiolinodoro.it/"
     },
     "offers": [
       {
@@ -125,32 +126,6 @@
         "priceCurrency": "EUR",
         "availability": "https://schema.org/InStock",
         "url": "https://cookingclassarezzo.it/#book"
-      }
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "bestRating": "5",
-      "reviewCount": "46"
-    },
-    "review": [
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Tracey" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "My daughter and I had such a lovely, memorable morning. We learned how to make pasta and tiramisu the traditional Tuscan way, using the freshest ingredients. A fantastic way to spend time in beautiful Arezzo."
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Kathleen" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "I took my nieces and sisters-in-law to the cooking class. It was fantastic. The staff is friendly, the instructions are great, and the house wine is excellent. I would do it again without hesitation."
-      },
-      {
-        "@type": "Review",
-        "author": { "@type": "Person", "name": "Louise" },
-        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-        "reviewBody": "This was a wonderful activity, best day of my travelling experience. The host and chef were wonderful, informative and friendly. A fun experience making pasta that's good to recreate at home."
       }
     ]
   }
@@ -205,12 +180,12 @@
       {
         "@type": "Question",
         "name": "Where can I stay near the cooking class?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Many guests stay at Il Poggiolino d'Oro (www.ilpoggiolinodoro.it), a panoramic holiday home in the Tuscan countryside 10 minutes from Arezzo — original wooden beams, valley views, up to 6 guests. Booking the class and the stay together makes a complete Tuscan getaway." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Many guests stay at Il Poggiolino d'Oro – holiday apartment in Arezzo (https://ilpoggiolinodoro.it/en/): a 55 m² apartment for up to 6 guests in Le Poggiola, with original wooden beams, a balcony overlooking the city, free parking and self check-in, 5 minutes from the A1 Arezzo exit and 12–15 minutes from Piazza Grande. The class itself takes place in central Arezzo, near the train station." }
       },
       {
         "@type": "Question",
         "name": "Can I combine the cooking class with Arezzo's Christmas markets?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. From mid-November to 6 January Arezzo hosts 'Città del Natale', Tuscany's biggest Christmas market, with a Tyrolean village in Piazza Grande. A popular plan is the markets in the morning, the 13:00 or 17:30 cooking class, and a night in the countryside at Il Poggiolino d'Oro." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. From mid-November to 6 January Arezzo hosts 'Città del Natale', Tuscany's biggest Christmas market, with a Tyrolean village in Piazza Grande. A popular plan is the markets in the morning, the 13:00 or 17:30 cooking class, and a night at Il Poggiolino d'Oro, a holiday apartment in Arezzo with free parking (https://ilpoggiolinodoro.it/en/christmas-market-arezzo/)." }
       },
       {
         "@type": "Question",
@@ -252,7 +227,7 @@
         <span class="dot"><a href="#location">Arezzo, Tuscany, Italy</a></span>
         <span class="dot muted">In the heart of Arezzo, Tuscany</span>
       </div>
-      <a class="presented-btn" href="https://www.ilpoggiolinodoro.it" target="_blank" rel="noopener">✨ An experience presented by&nbsp;<strong>Il Poggiolino d'Oro</strong> ↗</a>
+      <a class="presented-btn" href="https://ilpoggiolinodoro.it/en/" target="_blank" rel="noopener">✨ An experience presented by&nbsp;<strong>Il Poggiolino d'Oro</strong> ↗</a>
     </div>
 
     <!-- ===== Photo mosaic ===== -->
@@ -618,18 +593,18 @@
         <!-- FAQ -->
         <section id="tuscany">
           <h2>Make it a full Tuscan getaway</h2>
-          <p class="sub">Cooking class + countryside stay + the best of Arezzo — one unforgettable trip.</p>
+          <p class="sub">Cooking class + a stay in Arezzo + the best of the city — one unforgettable trip.</p>
           <div class="getaway-grid">
             <div class="getaway-card">
               <div class="g-ico">🛏️</div>
-              <h3>Sleep in the Tuscan countryside</h3>
-              <p>Our guests' favourite base is <strong>Il Poggiolino d'Oro</strong>, a panoramic holiday home just 10 minutes from Arezzo: original wooden beams, sweeping valley views, up to 6 guests — authentic Tuscany, surrounded by nature and silence.</p>
-              <a class="g-link" href="https://www.ilpoggiolinodoro.it" rel="noopener">Stay at Il Poggiolino d'Oro holiday home →</a>
+              <h3>Where to stay in Arezzo</h3>
+              <p>Our guests' favourite base is <strong>Il Poggiolino d'Oro – holiday apartment in Arezzo</strong>: 55 m² for up to 6 guests, original wooden beams and a balcony overlooking the city, free parking and self check-in — 5 minutes from the A1 Arezzo exit and 12–15 minutes from Piazza Grande.</p>
+              <a class="g-link" href="https://ilpoggiolinodoro.it/en/" rel="noopener">See the holiday apartment in Arezzo →</a>
             </div>
             <div class="getaway-card">
               <div class="g-ico">🎄</div>
               <h3>Christmas markets season</h3>
-              <p>From <strong>mid-November to 6 January</strong> Arezzo becomes “Città del Natale” — Tuscany's biggest Christmas market, with a Tyrolean village filling Piazza Grande. Morning among the chalets, cooking class at 13:00 or 17:30, dinner by the fire.</p>
+              <p>From <strong>mid-November to 6 January</strong> Arezzo becomes “Città del Natale” — Tuscany's biggest Christmas market, with a Tyrolean village filling Piazza Grande. Morning among the chalets, cooking class at 13:00 or 17:30 — and, since the town centre sells out on market weekends, <a href="https://ilpoggiolinodoro.it/en/christmas-market-arezzo/" rel="noopener">where to stay for the Arezzo Christmas market</a>.</p>
               <a class="g-link" href="https://wa.me/393469776103?text=Hello!%20I%27d%20like%20to%20plan%20a%20Christmas%20markets%20%2B%20cooking%20class%20getaway%20in%20Arezzo." rel="noopener">Plan a Christmas getaway →</a>
             </div>
             <div class="getaway-card">
@@ -685,11 +660,11 @@
             </details>
             <details>
               <summary>Where can I stay near the cooking class?</summary>
-              <p class="answer">Many of our guests stay at <a href="https://www.ilpoggiolinodoro.it" rel="noopener">Il Poggiolino d'Oro</a>, a panoramic holiday home in the countryside 10 minutes from Arezzo — original wooden beams, valley views, up to 6 guests. Book the class and the stay together for the full Tuscan experience.</p>
+              <p class="answer">Many of our guests stay at <a href="https://ilpoggiolinodoro.it/en/" rel="noopener">Il Poggiolino d'Oro – holiday apartment in Arezzo</a>: up to 6 guests, original wooden beams, a balcony overlooking the city and free parking, 5 minutes from the A1 Arezzo exit and 12–15 minutes from Piazza Grande. The class itself is in central Arezzo, near the train station.</p>
             </details>
             <details>
               <summary>Can I combine the class with Arezzo's Christmas markets?</summary>
-              <p class="answer">Yes! From mid-November to 6 January Arezzo hosts "Città del Natale", Tuscany's biggest Christmas market, with a Tyrolean village in Piazza Grande. Spend the morning at the markets and join the 13:00 or 17:30 class — then sleep in the countryside at Il Poggiolino d'Oro.</p>
+              <p class="answer">Yes! From mid-November to 6 January Arezzo hosts "Città del Natale", Tuscany's biggest Christmas market, with a Tyrolean village in Piazza Grande. Spend the morning at the markets and join the 13:00 or 17:30 class — then stay at <a href="https://ilpoggiolinodoro.it/en/christmas-market-arezzo/" rel="noopener">Il Poggiolino d'Oro, a holiday apartment for the Arezzo Christmas market</a>.</p>
             </details>
             <details>
               <summary>What else can I see around Arezzo?</summary>
@@ -780,7 +755,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Cooking Class Arezzo, Tuscany. All rights reserved. · An experience presented by <a href="https://www.ilpoggiolinodoro.it" rel="noopener">Il Poggiolino d'Oro Apartment</a></p>
+        <p>© 2026 Cooking Class Arezzo, Tuscany. All rights reserved. · An experience presented by <a href="https://ilpoggiolinodoro.it/en/" rel="noopener">Il Poggiolino d'Oro – holiday apartment in Arezzo</a></p>
       </div>
     </div>
   </footer>

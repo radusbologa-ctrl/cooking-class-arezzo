@@ -53,3 +53,13 @@ Sito web bilingue (EN/IT) per le cooking class di Arezzo presentate da **Il Pogg
 ## Foto
 
 Le foto `real-*.jpg` e `tuscany-landscape.jpg` sono foto reali della cooking class (da ilpoggiolinodoro.it); le altre sono generate con AI (Higgsfield). Quando avrai altre foto reali, sostituisci i file in `assets/img/` mantenendo gli stessi nomi: le foto reali convertono meglio e Google le preferisce.
+
+## IndexNow (Bing / Yandex)
+
+Chiave: `97f1df9f316a6fcdaafe34ea0a6fa7c4`, pubblicata in `/97f1df9f316a6fcdaafe34ea0a6fa7c4.txt`. Non rimuovere quel file né il meta tag `google-site-verification` nella home (verifica Search Console). Dopo ogni aggiornamento dei contenuti, invia le URL della sitemap:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" -X POST https://api.indexnow.org/indexnow -H "Content-Type: application/json; charset=utf-8" -d '{"host":"cookingclassarezzo.it","key":"97f1df9f316a6fcdaafe34ea0a6fa7c4","keyLocation":"https://cookingclassarezzo.it/97f1df9f316a6fcdaafe34ea0a6fa7c4.txt","urlList":["https://cookingclassarezzo.it/","https://cookingclassarezzo.it/it/"]}'
+```
+
+Risposta attesa: 200 o 202.

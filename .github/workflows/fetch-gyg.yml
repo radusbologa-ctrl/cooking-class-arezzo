@@ -1,4 +1,4 @@
-name: Fetch legal footer
+name: Fetch legal footer v2
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
         continue-on-error: true
         run: |
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
-          for URL in "https://activewise.biz" "https://www.activewise.biz"; do
+          for URL in "https://activewise.biz" "https://actiwise.biz" "https://www.actiwise.biz" "https://activewise.it" "https://actiwise.it" "https://www.actiwise.it"; do
             echo "===== FETCH $URL ====="
             curl -sL -A "$UA" --max-time 40 "$URL" -o /tmp/aw.html && echo "SIZE: $(wc -c < /tmp/aw.html)" && break || echo FETCH_FAILED
           done

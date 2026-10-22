@@ -83,6 +83,112 @@
   }
   </script>
 
+  <!-- Structured data: Product/Service (lezione di cucina) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["Product", "Service"],
+    "@id": "https://cookingclassarezzo.it/it/#cookingclass",
+    "name": "Cooking Class Tradizionale Toscana ad Arezzo — Pasta Fresca e Tiramisù",
+    "description": "Lezione di cucina pratica ad Arezzo, in Toscana. Impara a preparare la pasta fresca fatta a mano e il vero tiramisù italiano con la guida di una chef esperta. Include ingredienti e attrezzatura, vini locali a volontà, ricette da portare a casa e un pasto completo con tutto ciò che prepari. Classi piccole, dal martedì al venerdì e la domenica alle 10:30, 13:00 e 17:30, su prenotazione.",
+    "image": [
+      "https://cookingclassarezzo.it/assets/img/guests-draping-tagliatelle.jpg",
+      "https://cookingclassarezzo.it/assets/img/real-pasta-table.jpg",
+      "https://cookingclassarezzo.it/assets/img/real-tiramisu.jpg",
+      "https://cookingclassarezzo.it/assets/img/tiramisu-platter.jpg"
+    ],
+    "brand": { "@type": "Brand", "name": "Cooking Class Arezzo" },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "bestRating": "5",
+      "reviewCount": "46"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Franny" },
+        "datePublished": "2026-10",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "This was such a great experience! We had the best time with the staff and the food was incredible! It was super easy to follow the chef and she provided detailed instructions. We were able to take home what we didn't eat and we are so excited to go back for dinner:)"
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Morgan" },
+        "datePublished": "2026-10",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "This experience was so amazing! The instructors were so kind, knowledgeable, and supportive during our class! I learned a ton, had fun, and was so full by the end! I would book this experience again!"
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "Christopher" },
+        "datePublished": "2026-10",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+        "reviewBody": "Amazing experience! Our family did this activity together as a group of 9 and it was very enjoyable and would highly recommend."
+      }
+    ],
+    "provider": {
+      "@type": "LodgingBusiness",
+      "@id": "https://ilpoggiolinodoro.it/#lodging",
+      "name": "Il Poggiolino d'Oro",
+      "url": "https://ilpoggiolinodoro.it/"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Lezione del mattino — 10:30",
+        "price": "69.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "doesNotShip": true
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "IT",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+        },
+        "url": "https://cookingclassarezzo.it/it/#book"
+      },
+      {
+        "@type": "Offer",
+        "name": "Lezione pranzo — 13:00",
+        "price": "79.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "doesNotShip": true
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "IT",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+        },
+        "url": "https://cookingclassarezzo.it/it/#book"
+      },
+      {
+        "@type": "Offer",
+        "name": "Lezione del pomeriggio — 17:30",
+        "price": "89.00",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "doesNotShip": true
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "IT",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted"
+        },
+        "url": "https://cookingclassarezzo.it/it/#book"
+      }
+    ]
+  }
+  </script>
+
   <!-- Structured data: FAQ -->
   <script type="application/ld+json">
   {
@@ -123,6 +229,11 @@
         "@type": "Question",
         "name": "Come si prenota la cooking class ad Arezzo?",
         "acceptedAnswer": { "@type": "Answer", "text": "Scegli l'orario e prenota su WhatsApp al +39 346 9776103, telefona al +39 346 9776103 o scrivi a ilpoggiolinodoro@gmail.com. La prenotazione è obbligatoria." }
+      },
+      {
+        "@type": "Question",
+        "name": "Chi gestisce l'esperienza della cooking class?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Cooking Class Arezzo è un servizio di prenotazione di Radus Agency di Bologa Radu Adrian (P.IVA IT02402690511). Riceviamo la prenotazione e organizziamo la lezione presso una struttura partner selezionata ad Arezzo; l'indirizzo esatto viene comunicato con la conferma della prenotazione." }
       },
       {
         "@type": "Question",
@@ -596,6 +707,10 @@
             <details>
               <summary>Come si prenota?</summary>
               <p class="answer">Scegli l'orario e tocca "Prenota" per prenotare su WhatsApp, oppure chiama il <a href="tel:+393469776103">+39 346 9776103</a> o scrivi a <a href="mailto:ilpoggiolinodoro@gmail.com">ilpoggiolinodoro@gmail.com</a>. La prenotazione anticipata è obbligatoria.</p>
+            </details>
+            <details>
+              <summary>Chi gestisce l'esperienza?</summary>
+              <p class="answer">Cooking Class Arezzo è un servizio di prenotazione di Radus Agency di Bologa Radu Adrian: riceviamo la tua prenotazione e organizziamo la lezione presso una struttura partner selezionata ad Arezzo. L'indirizzo esatto e le indicazioni di arrivo vengono comunicati con la conferma della prenotazione.</p>
             </details>
             <details>
               <summary>Quanto dura la lezione? Serve esperienza?</summary>

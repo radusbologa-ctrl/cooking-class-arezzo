@@ -1,4 +1,4 @@
-name: Check HTTPS certificate # recheck december page
+name: Check HTTPS certificate # verify goatcounter live
 
 on:
   workflow_dispatch:
@@ -49,6 +49,11 @@ jobs:
           curl -sS -o /tmp/dec.html -w "status=%{http_code}\n" --max-time 20 https://cookingclassarezzo.it/tuscany-in-december/
           echo "DEC title:$(grep -c 'Tuscany in December' /tmp/dec.html || true) corniole:$(grep -ci corniole /tmp/dec.html || true) faq:$(grep -c FAQPage /tmp/dec.html || true) wa:$(grep -c wa.me/393469776103 /tmp/dec.html || true)"
           echo "EN mustdo:$(grep -c mustdo /tmp/en.html || true) december:$(grep -c 'id="december"' /tmp/en.html || true) celebrate:$(grep -c celebrate /tmp/en.html || true)"
+          echo "===== goatcounter snippet live ====="
+          echo "EN goatcounter:$(grep -c goatcounter /tmp/en.html || true) IT goatcounter:$(grep -c goatcounter /tmp/itp.html || true) DEC goatcounter:$(grep -c goatcounter /tmp/dec.html || true)"
+          echo "===== goatcounter endpoint reachable ====="
+          curl -sS -o /dev/null -w "count.js status=%{http_code}\n" --max-time 15 https://gc.zgo.at/count.js || true
+          curl -sS -o /dev/null -w "dashboard endpoint status=%{http_code}\n" --max-time 15 "https://cookingclassarezzo.goatcounter.com/count?p=/ci-test&t=CI%20test" || true
           echo "===== backlink from ilpoggiolinodoro.it ====="
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
           curl -sL -A "$UA" --max-time 25 https://www.ilpoggiolinodoro.it/ -o /tmp/pdo.html || echo "PDO_FETCH_FAILED"

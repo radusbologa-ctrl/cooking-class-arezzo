@@ -1,4 +1,4 @@
-name: Verify poggiolino EN links and airbnb listing
+name: Trace poggiolino cooking page history
 
 on:
   push:
@@ -11,43 +11,49 @@ permissions:
   contents: read
 
 jobs:
-  verify:
+  trace:
     runs-on: ubuntu-latest
     steps:
-      - name: Poggiolino EN pages backlinks
+      - name: Current state of poggiolino cooking paths
         continue-on-error: true
         run: |
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
-          for P in "" "en/" "en/christmas-market-arezzo/" "mercatini-natale-arezzo/" "en/cooking-class/" "cooking-class/"; do
+          for P in "cooking-class/" "en/cooking-class/" "cooking-class-arezzo/" "en/cooking-class-arezzo/" "corso-di-cucina/" "cooking/"; do
             URL="https://www.ilpoggiolinodoro.it/$P"
             echo "=========== $URL ==========="
-            curl -sSL -A "$UA" --max-time 25 -w "status=%{http_code}\n" -o /tmp/p.html "$URL" || { echo FETCH_FAILED; continue; }
+            curl -sS -A "$UA" --max-time 25 -w "status=%{http_code} redirect=%{redirect_url}\n" -o /tmp/p.html "$URL" || { echo FETCH_FAILED; continue; }
+            echo "title: $(grep -oE '<title>[^<]*' /tmp/p.html | head -1 || true)"
+            echo "wa.me links: $(grep -oE 'wa.me/[0-9]+' /tmp/p.html | sort -u | tr '\n' ' ')"
             echo "links->cookingclassarezzo: $(grep -c 'cookingclassarezzo.it' /tmp/p.html || true)"
-            grep -oE 'href="https://cookingclassarezzo.it[^"]*"' /tmp/p.html | sort | uniq -c || echo "none"
+            echo "getyourguide refs: $(grep -ci getyourguide /tmp/p.html || true)"
           done
-      - name: Airbnb experience 1310410 identity
+      - name: Wayback snapshots list for cooking pages
         continue-on-error: true
         run: |
-          echo "=========== plain curl ==========="
-          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
-          curl -sSL -A "$UA" --max-time 30 -w "status=%{http_code} size=%{size_download}\n" -o /tmp/ab.html "https://www.airbnb.com/experiences/1310410" || echo CURL_FAILED
-          echo "=========== headless chrome ==========="
-          timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=20000 --dump-dom "https://www.airbnb.com/experiences/1310410" > /tmp/ab2.html 2>/dev/null || echo RENDER_FAILED
-          echo "SIZE chrome: $(wc -c < /tmp/ab2.html)"
-          python3 - << 'PYEOF'
-          import re, html
-          best = max(['/tmp/ab.html', '/tmp/ab2.html'], key=lambda f: __import__('os').path.getsize(f) if __import__('os').path.exists(f) else 0)
-          t = open(best, encoding='utf-8', errors='replace').read()
-          print("USING:", best, len(t))
-          m = re.search(r'<title>(.*?)</title>', t, re.S)
-          print("TITLE:", html.unescape(m.group(1))[:200] if m else 'none')
-          m = re.search(r'<meta name="description" content="([^"]*)"', t)
-          print("META:", html.unescape(m.group(1))[:300] if m else 'none')
-          for kw in ['Hosted by', 'host', 'Arezzo', 'tiramisu', 'Tiramisu', 'pasta', 'restaurant', 'Antonella', 'Barbara', 'Giulia', 'Julia', 'Corniole', 'station']:
-              hits = [mm.start() for mm in re.finditer(kw, t)]
-              if hits:
-                  i = hits[0]
-                  snippet = re.sub(r'<[^>]+>', ' ', t[max(0,i-150):i+250])
-                  snippet = html.unescape(re.sub(r'\s+', ' ', snippet))
-                  print(f"KW {kw} ({len(hits)}x):", snippet[:260])
-          PYEOF
+          for U in "ilpoggiolinodoro.it/cooking-class*" "ilpoggiolinodoro.it/en/cooking-class*" "ilpoggiolinodoro.it/corso-di-cucina*" "cookingclassarezzo.it/"; do
+            echo "=========== CDX $U ==========="
+            curl -sS --max-time 30 "http://web.archive.org/cdx/search/cdx?url=$U&output=text&fl=timestamp,original,statuscode&from=20250601&to=20261103&limit=60" || echo CDX_FAILED
+          done
+      - name: Fetch October snapshot of cooking page
+        continue-on-error: true
+        run: |
+          for U in "https://www.ilpoggiolinodoro.it/cooking-class/" "https://www.ilpoggiolinodoro.it/en/cooking-class/"; do
+            echo "=========== AVAILABLE near 2026-10-10: $U ==========="
+            curl -sS --max-time 30 "http://archive.org/wayback/available?url=$U&timestamp=20261010" || echo AVAIL_FAILED
+            echo ""
+          done
+          echo "=========== fetching best snapshot content =========="
+          SNAP=$(curl -sS --max-time 30 "http://archive.org/wayback/available?url=https://www.ilpoggiolinodoro.it/cooking-class/&timestamp=20261010" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('archived_snapshots',{}).get('closest',{}).get('url',''))")
+          echo "SNAP=$SNAP"
+          if [ -n "$SNAP" ]; then
+            curl -sSL --max-time 60 -o /tmp/snap.html "$SNAP" || echo SNAP_FETCH_FAILED
+            echo "size: $(wc -c < /tmp/snap.html)"
+            echo "title: $(grep -oE '<title>[^<]*' /tmp/snap.html | head -1 || true)"
+            echo "wa.me links: $(grep -oE 'wa.me/[0-9]+' /tmp/snap.html | sort -u | tr '\n' ' ')"
+            echo "tel links: $(grep -oE 'tel:[+0-9]+' /tmp/snap.html | sort -u | tr '\n' ' ')"
+            echo "links->cookingclassarezzo: $(grep -c 'cookingclassarezzo.it' /tmp/snap.html || true)"
+            echo "getyourguide refs: $(grep -ci getyourguide /tmp/snap.html || true)"
+            echo "corniole refs: $(grep -ci corniole /tmp/snap.html || true)"
+            echo "--- h1/h2 ---"
+            grep -oE '<h[12][^>]*>[^<]*' /tmp/snap.html | head -10 || true
+          fi

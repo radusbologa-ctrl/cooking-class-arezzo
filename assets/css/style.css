@@ -473,3 +473,7 @@ a { color: inherit; }
 /* Pull quote (must-do section) */
 .pull-quote { margin: 18px 0 0; padding: 16px 18px; background: #f7f7f7; border-left: 4px solid var(--accent, #ff385c); border-radius: 10px; font-style: italic; }
 .pull-quote small { display: block; margin-top: 8px; color: #717171; font-style: normal; }
+
+/* Direct booking list */
+.direct-list { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 10px; }
+.direct-list li { line-height: 1.55; }

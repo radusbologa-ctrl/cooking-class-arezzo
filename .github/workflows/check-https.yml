@@ -1,4 +1,4 @@
-name: Check HTTPS certificate # verify https enforced
+name: Check HTTPS certificate # verify december page live
 
 on:
   workflow_dispatch:
@@ -45,6 +45,10 @@ jobs:
           echo "EN corniole:$(grep -ci corniole /tmp/en.html || true) actiwise:$(grep -c actiwise /tmp/en.html || true) wa-btn:$(grep -c wa-btn /tmp/en.html || true) getaway:$(grep -c tuscany /tmp/en.html || true) poggiolino:$(grep -ci poggiolino /tmp/en.html || true)"
           echo "EN reviews:$(grep -c 'class=\"review\"' /tmp/en.html || true) kalen:$(grep -c Kalen /tmp/en.html || true) count46:$(grep -c '46 verified' /tmp/en.html || true)"
           echo "IT corniole:$(grep -ci corniole /tmp/itp.html || true) actiwise:$(grep -c actiwise /tmp/itp.html || true) wa-btn:$(grep -c wa-btn /tmp/itp.html || true) getaway:$(grep -c tuscany /tmp/itp.html || true) poggiolino:$(grep -ci poggiolino /tmp/itp.html || true)"
+          echo "===== december landing page ====="
+          curl -sS -o /tmp/dec.html -w "status=%{http_code}\n" --max-time 20 https://cookingclassarezzo.it/tuscany-in-december/
+          echo "DEC title:$(grep -c 'Tuscany in December' /tmp/dec.html || true) corniole:$(grep -ci corniole /tmp/dec.html || true) faq:$(grep -c FAQPage /tmp/dec.html || true) wa:$(grep -c wa.me/393469776103 /tmp/dec.html || true)"
+          echo "EN mustdo:$(grep -c mustdo /tmp/en.html || true) december:$(grep -c 'id="december"' /tmp/en.html || true) celebrate:$(grep -c celebrate /tmp/en.html || true)"
           echo "===== backlink from ilpoggiolinodoro.it ====="
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
           curl -sL -A "$UA" --max-time 25 https://www.ilpoggiolinodoro.it/ -o /tmp/pdo.html || echo "PDO_FETCH_FAILED"

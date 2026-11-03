@@ -1,4 +1,4 @@
-name: IndexNow submit december page
+name: Verify poggiolino EN links and airbnb listing
 
 on:
   push:
@@ -11,27 +11,43 @@ permissions:
   contents: read
 
 jobs:
-  submit:
+  verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Submit URLs to IndexNow (Bing, Yandex, Seznam)
+      - name: Poggiolino EN pages backlinks
         continue-on-error: true
         run: |
-          cat > /tmp/payload.json << 'JSON'
-          {
-            "host": "cookingclassarezzo.it",
-            "key": "97f1df9f316a6fcdaafe34ea0a6fa7c4",
-            "keyLocation": "https://cookingclassarezzo.it/97f1df9f316a6fcdaafe34ea0a6fa7c4.txt",
-            "urlList": [
-              "https://cookingclassarezzo.it/",
-              "https://cookingclassarezzo.it/it/",
-              "https://cookingclassarezzo.it/tuscany-in-december/"
-            ]
-          }
-          JSON
-          echo "===== key file reachable ====="
-          curl -sS -w "\nstatus=%{http_code}\n" https://cookingclassarezzo.it/97f1df9f316a6fcdaafe34ea0a6fa7c4.txt
-          echo "===== api.indexnow.org ====="
-          curl -sS -w "\nstatus=%{http_code}\n" -X POST "https://api.indexnow.org/indexnow" -H "Content-Type: application/json; charset=utf-8" --data-binary @/tmp/payload.json
-          echo "===== bing ====="
-          curl -sS -w "\nstatus=%{http_code}\n" -X POST "https://www.bing.com/indexnow" -H "Content-Type: application/json; charset=utf-8" --data-binary @/tmp/payload.json
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+          for P in "" "en/" "en/christmas-market-arezzo/" "mercatini-natale-arezzo/" "en/cooking-class/" "cooking-class/"; do
+            URL="https://www.ilpoggiolinodoro.it/$P"
+            echo "=========== $URL ==========="
+            curl -sSL -A "$UA" --max-time 25 -w "status=%{http_code}\n" -o /tmp/p.html "$URL" || { echo FETCH_FAILED; continue; }
+            echo "links->cookingclassarezzo: $(grep -c 'cookingclassarezzo.it' /tmp/p.html || true)"
+            grep -oE 'href="https://cookingclassarezzo.it[^"]*"' /tmp/p.html | sort | uniq -c || echo "none"
+          done
+      - name: Airbnb experience 1310410 identity
+        continue-on-error: true
+        run: |
+          echo "=========== plain curl ==========="
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
+          curl -sSL -A "$UA" --max-time 30 -w "status=%{http_code} size=%{size_download}\n" -o /tmp/ab.html "https://www.airbnb.com/experiences/1310410" || echo CURL_FAILED
+          echo "=========== headless chrome ==========="
+          timeout 90 google-chrome --headless=new --disable-gpu --no-sandbox --virtual-time-budget=20000 --dump-dom "https://www.airbnb.com/experiences/1310410" > /tmp/ab2.html 2>/dev/null || echo RENDER_FAILED
+          echo "SIZE chrome: $(wc -c < /tmp/ab2.html)"
+          python3 - << 'PYEOF'
+          import re, html
+          best = max(['/tmp/ab.html', '/tmp/ab2.html'], key=lambda f: __import__('os').path.getsize(f) if __import__('os').path.exists(f) else 0)
+          t = open(best, encoding='utf-8', errors='replace').read()
+          print("USING:", best, len(t))
+          m = re.search(r'<title>(.*?)</title>', t, re.S)
+          print("TITLE:", html.unescape(m.group(1))[:200] if m else 'none')
+          m = re.search(r'<meta name="description" content="([^"]*)"', t)
+          print("META:", html.unescape(m.group(1))[:300] if m else 'none')
+          for kw in ['Hosted by', 'host', 'Arezzo', 'tiramisu', 'Tiramisu', 'pasta', 'restaurant', 'Antonella', 'Barbara', 'Giulia', 'Julia', 'Corniole', 'station']:
+              hits = [mm.start() for mm in re.finditer(kw, t)]
+              if hits:
+                  i = hits[0]
+                  snippet = re.sub(r'<[^>]+>', ' ', t[max(0,i-150):i+250])
+                  snippet = html.unescape(re.sub(r'\s+', ' ', snippet))
+                  print(f"KW {kw} ({len(hits)}x):", snippet[:260])
+          PYEOF

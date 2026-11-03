@@ -1,4 +1,4 @@
-name: Trace poggiolino cooking page history
+name: Trace poggiolino cooking page history v2
 
 on:
   push:
@@ -18,10 +18,11 @@ jobs:
         continue-on-error: true
         run: |
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
-          for P in "cooking-class/" "en/cooking-class/" "cooking-class-arezzo/" "en/cooking-class-arezzo/" "corso-di-cucina/" "cooking/"; do
-            URL="https://www.ilpoggiolinodoro.it/$P"
+          for P in "cooking-class/" "en/cooking-class/" "cooking-class-arezzo/" "en/cooking-class-arezzo/" "corso-di-cucina/" "cooking/" "en/" "" "sitemap.xml"; do
+            URL="https://ilpoggiolinodoro.it/$P"
             echo "=========== $URL ==========="
-            curl -sS -A "$UA" --max-time 25 -w "status=%{http_code} redirect=%{redirect_url}\n" -o /tmp/p.html "$URL" || { echo FETCH_FAILED; continue; }
+            curl -sSL -A "$UA" --max-time 25 -w "final_status=%{http_code} final_url=%{url_effective}\n" -o /tmp/p.html "$URL" || { echo FETCH_FAILED; continue; }
+            if [ "$P" = "sitemap.xml" ]; then echo "--- sitemap urls ---"; grep -oE '<loc>[^<]*' /tmp/p.html | head -40 || true; fi
             echo "title: $(grep -oE '<title>[^<]*' /tmp/p.html | head -1 || true)"
             echo "wa.me links: $(grep -oE 'wa.me/[0-9]+' /tmp/p.html | sort -u | tr '\n' ' ')"
             echo "links->cookingclassarezzo: $(grep -c 'cookingclassarezzo.it' /tmp/p.html || true)"

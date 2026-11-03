@@ -1,4 +1,4 @@
-name: Check HTTPS certificate # verify december page live
+name: Check HTTPS certificate # recheck december page
 
 on:
   workflow_dispatch:

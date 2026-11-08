@@ -1,4 +1,4 @@
-name: Trace poggiolino cooking page history v2
+name: SEO conflict audit both sites
 
 on:
   push:
@@ -11,50 +11,43 @@ permissions:
   contents: read
 
 jobs:
-  trace:
+  audit:
     runs-on: ubuntu-latest
     steps:
-      - name: Current state of poggiolino cooking paths
+      - name: Head tags of every cooking page on both sites
         continue-on-error: true
         run: |
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
-          for P in "cooking-class/" "en/cooking-class/" "cooking-class-arezzo/" "en/cooking-class-arezzo/" "corso-di-cucina/" "cooking/" "en/" "" "sitemap.xml"; do
-            URL="https://ilpoggiolinodoro.it/$P"
-            echo "=========== $URL ==========="
-            curl -sSL -A "$UA" --max-time 25 -w "final_status=%{http_code} final_url=%{url_effective}\n" -o /tmp/p.html "$URL" || { echo FETCH_FAILED; continue; }
-            if [ "$P" = "sitemap.xml" ]; then echo "--- sitemap urls ---"; grep -oE '<loc>[^<]*' /tmp/p.html | head -40 || true; fi
-            echo "title: $(grep -oE '<title>[^<]*' /tmp/p.html | head -1 || true)"
-            echo "wa.me links: $(grep -oE 'wa.me/[0-9]+' /tmp/p.html | sort -u | tr '\n' ' ')"
-            echo "links->cookingclassarezzo: $(grep -c 'cookingclassarezzo.it' /tmp/p.html || true)"
-            echo "getyourguide refs: $(grep -ci getyourguide /tmp/p.html || true)"
+          for URL in \
+            "https://ilpoggiolinodoro.it/cooking-class-arezzo/" \
+            "https://ilpoggiolinodoro.it/en/cooking-class-arezzo/" \
+            "https://cookingclassarezzo.it/" \
+            "https://cookingclassarezzo.it/it/" \
+            "https://cookingclassarezzo.it/tuscany-in-december/"; do
+            echo "================== $URL =================="
+            curl -sSL -A "$UA" --max-time 25 -w "final_status=%{http_code}\n" -o /tmp/p.html "$URL" || { echo FETCH_FAILED; continue; }
+            python3 - << 'PYEOF'
+          import re, html
+          t = open('/tmp/p.html', encoding='utf-8', errors='replace').read()
+          def show(label, pattern, flags=0):
+              ms = re.findall(pattern, t, flags)
+              for m in ms[:6]:
+                  print(f"{label}: {html.unescape(m.strip())[:160]}")
+              if not ms: print(f"{label}: NONE")
+          show("TITLE", r'<title>(.*?)</title>', re.S)
+          show("DESC", r'<meta name="description" content="([^"]*)"')
+          show("ROBOTS", r'<meta name="robots" content="([^"]*)"')
+          show("CANONICAL", r'<link rel="canonical" href="([^"]*)"')
+          show("HREFLANG", r'<link rel="alternate" hreflang="([^"]*)" href="[^"]*"')
+          show("H1", r'<h1[^>]*>(.*?)</h1>', re.S)
+          print("noindex-anywhere:", len(re.findall(r'noindex', t)))
+          print("schema-types:", sorted(set(re.findall(r'"@type"\s*:\s*"([A-Za-z]+)"', t))))
+          PYEOF
           done
-      - name: Wayback snapshots list for cooking pages
+      - name: Robots.txt both sites
         continue-on-error: true
         run: |
-          for U in "ilpoggiolinodoro.it/cooking-class*" "ilpoggiolinodoro.it/en/cooking-class*" "ilpoggiolinodoro.it/corso-di-cucina*" "cookingclassarezzo.it/"; do
-            echo "=========== CDX $U ==========="
-            curl -sS --max-time 30 "http://web.archive.org/cdx/search/cdx?url=$U&output=text&fl=timestamp,original,statuscode&from=20250601&to=20261103&limit=60" || echo CDX_FAILED
-          done
-      - name: Fetch October snapshot of cooking page
-        continue-on-error: true
-        run: |
-          for U in "https://www.ilpoggiolinodoro.it/cooking-class/" "https://www.ilpoggiolinodoro.it/en/cooking-class/"; do
-            echo "=========== AVAILABLE near 2026-10-10: $U ==========="
-            curl -sS --max-time 30 "http://archive.org/wayback/available?url=$U&timestamp=20261010" || echo AVAIL_FAILED
-            echo ""
-          done
-          echo "=========== fetching best snapshot content =========="
-          SNAP=$(curl -sS --max-time 30 "http://archive.org/wayback/available?url=https://www.ilpoggiolinodoro.it/cooking-class/&timestamp=20261010" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('archived_snapshots',{}).get('closest',{}).get('url',''))")
-          echo "SNAP=$SNAP"
-          if [ -n "$SNAP" ]; then
-            curl -sSL --max-time 60 -o /tmp/snap.html "$SNAP" || echo SNAP_FETCH_FAILED
-            echo "size: $(wc -c < /tmp/snap.html)"
-            echo "title: $(grep -oE '<title>[^<]*' /tmp/snap.html | head -1 || true)"
-            echo "wa.me links: $(grep -oE 'wa.me/[0-9]+' /tmp/snap.html | sort -u | tr '\n' ' ')"
-            echo "tel links: $(grep -oE 'tel:[+0-9]+' /tmp/snap.html | sort -u | tr '\n' ' ')"
-            echo "links->cookingclassarezzo: $(grep -c 'cookingclassarezzo.it' /tmp/snap.html || true)"
-            echo "getyourguide refs: $(grep -ci getyourguide /tmp/snap.html || true)"
-            echo "corniole refs: $(grep -ci corniole /tmp/snap.html || true)"
-            echo "--- h1/h2 ---"
-            grep -oE '<h[12][^>]*>[^<]*' /tmp/snap.html | head -10 || true
-          fi
+          echo "===== cookingclassarezzo.it/robots.txt ====="
+          curl -sS --max-time 20 https://cookingclassarezzo.it/robots.txt || true
+          echo "===== ilpoggiolinodoro.it/robots.txt ====="
+          curl -sS --max-time 20 https://ilpoggiolinodoro.it/robots.txt || true
